@@ -1,0 +1,4 @@
+This is an Arduino library to emulate Alpines M-Bus which is used on a variety of car radios.
+You can send and receive messages as well as send special messages which trick the radio in believing it communicates with an cd changer.
+
+Feel free to add, copy and change the code as long as credit is given.
