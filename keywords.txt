@@ -1,0 +1,6 @@
+MBus	KEYWORD1
+send	KEYWORD2
+receive	KEYWORD2
+sendPlayingTrack	KEYWORD2
+sendChangedCD	KEYWORD2
+sendCDStatus	KEYWORD2
