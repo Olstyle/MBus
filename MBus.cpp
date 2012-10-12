@@ -32,7 +32,7 @@ void MBus::sendOne()
 
 void MBus::writeHexBitWise(uint8_t message)
 {
-		for(uint8_t i=3; i>-1; i--)
+		for(int8_t i=3; i>-1; i--)
 	{
 		uint8_t output=((message & (1<<i) )>>i);
 		if(output==1)
@@ -69,7 +69,7 @@ void MBus::send(uint64_t message)
 {
 	uint8_t printed=0;
 	uint8_t parity=0;
-	for(uint8_t i=16; i>=0; i--)
+	for(int8_t i=16; i>=0; i--)
 	{
 		uint8_t output=((message & ((uint64_t)0xF<<i*4) )>>i*4);
 	parity=parity^output;
@@ -85,7 +85,6 @@ void MBus::send(uint64_t message)
 	}
 	parity+=1;
 	writeHexBitWise(parity);
-	printed++;
 }
 
 boolean MBus::receive(uint64_t *message)
@@ -121,20 +120,21 @@ boolean MBus::receive(uint64_t *message)
 		{
 			gelesen=false;
 			time=micros();
-		  }  
+		}  
+		}
+		if(counter%4||!checkParity(message)||counter==0)
+		{
+			//message is not ok
+			*message=0;
+					return false;
+		}
+		else
+		{
+			(*message)=(*message)>>4;//ingnore parity
+					return true;
+		}
 	}
-	if(counter%4||!checkParity(message)||counter==0)
-	{
-		//message is not ok
-		*message=0;
-                return false;
-	}
-	else
-	{
-		(*message)=(*message)>>4;//ingnore parity
-                return true;
-	}
-	}
+	return false;
 
 }
 
