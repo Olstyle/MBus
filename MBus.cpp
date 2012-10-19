@@ -144,7 +144,8 @@ boolean MBus::receive(uint64_t *message)
 void MBus::sendPlayingTrack(uint8_t Track,uint16_t Time)
 {
 	uint64_t play=0x994000100000001ull;
-	play|=(uint64_t)Track<<(10*4);
+	play|=(uint64_t)(Track%10)<<(10*4);
+	play|=(uint64_t)(Track/10)<<(11*4);
 	
 	play|=(uint64_t)(Time%10)<<(4*4);
 	play|=(uint64_t)((Time%100)/10)<<(5*4);
@@ -154,10 +155,12 @@ void MBus::sendPlayingTrack(uint8_t Track,uint16_t Time)
 	send(play);
 }
 
-void MBus::sendChangedCD(uint8_t CD)
+void MBus::sendChangedCD(uint8_t CD,uint8_t Track)
 {
-	uint64_t play=0x9B900100001ull;
+	uint64_t play=0x9B900000001ull;
 	play|=(uint64_t)CD<<(7*4);
+	play|=(uint64_t)(Track%10)<<(5*4);
+	play|=(uint64_t)(Track/10)<<(6*4);
 	send(play);
 }
 

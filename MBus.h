@@ -22,7 +22,7 @@ Written by Oliver Mueller in October, 2012
 			void send(uint64_t message);
 			boolean receive(uint64_t *message);
 			void sendPlayingTrack(uint8_t Track,uint16_t Time);
-			void sendChangedCD(uint8_t CD);
+			void sendChangedCD(uint8_t CD,uint8_t Track);
 			void sendCDStatus(uint8_t CD);
 		private:
 			uint8_t _in;
