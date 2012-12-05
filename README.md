@@ -4,7 +4,7 @@ You can send and receive messages as well as send special messages which trick t
 Electrically, you'd want to have a piece of circuitry to split the send and receive line which is shown here(not my website):
 http://www.hohensohn.info/mbus/index.htm
 
-Copyright [2012] [Oliver Mueller]
+Copyright 2012 Oliver Mueller
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

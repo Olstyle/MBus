@@ -1,7 +1,7 @@
 /***
 MBus.h - Library to emulate Alpine M-Bus commands
 
-Copyright [2012] [Oliver Mueller]
+Copyright 2012 Oliver Mueller
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
