@@ -1,7 +1,20 @@
-/*
-MBus.cpp - Library to emulate Alpine M-Bus commands
-Written by Oliver Mueller in October, 2012
-*/
+/***
+MBus.h - Library to emulate Alpine M-Bus commands
+
+Copyright [2012] [Oliver Mueller]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+***/
 #include "MBus.h"
 
 
@@ -97,30 +110,30 @@ boolean MBus::receive(uint64_t *message)
 		boolean gelesen=false; 
 		uint8_t counter=0;
 
-	while((micros()-time)<4000)
-	{
-		if(digitalRead(_in)==HIGH&&!gelesen)
+		while((micros()-time)<4000)
 		{
-			if((micros()-time)<1400&&(micros()-time)>600)//0 ist in between 600 and 1700 microseconds
+			if(digitalRead(_in)==HIGH&&!gelesen)
 			{
-			  *message*=2;
-			  counter++;
-			  gelesen=true; 
+				if((micros()-time)<1400&&(micros()-time)>600)//0 is in between 600 and 1700 microseconds
+				{
+				  *message*=2;
+				  counter++;
+				  gelesen=true; 
+				}
+				else if((micros()-time)>1400)//1 is longer then 1700 microseconds
+				{
+				  *message*=2;
+				  *message+=1;
+				  counter++;
+				  gelesen=true;
+				  
+				}
 			}
-			else if((micros()-time)>1400)//1 ist longer then 1700 microseconds
+			if(gelesen&&digitalRead(_in)==LOW)  
 			{
-			  *message*=2;
-			  *message+=1;
-			  counter++;
-			  gelesen=true;
-			  
-			}
-		}
-		if(gelesen&&digitalRead(_in)==LOW)  
-		{
-			gelesen=false;
-			time=micros();
-		}  
+				gelesen=false;
+				time=micros();
+			}  
 		}
 		if(counter%4||!checkParity(message)||counter==0)
 		{
