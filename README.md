@@ -3,6 +3,8 @@ You can send and receive messages as well as send special messages which trick t
 
 Electrically, you'd want to have a piece of circuitry to split the send and receive line which is shown here(not my website):
 http://www.hohensohn.info/mbus/index.htm
+I also used this site for reference on the bus itself.
+
 
 Copyright 2012 Oliver Mueller
 
