@@ -152,7 +152,7 @@ void loop()
 		else if(receivedMessage>>(4*5)==0x113)//'please change cd'
 		{
 			uint64_t test=(receivedMessage >>(4*4))-(uint64_t)0x1130; 
-			if(test>0)//same cd as before
+			if(test>0)//not the same cd as before
 			{
 				mBus.sendChangedCD(test,1);//'did change'
 				delay(50);
@@ -167,7 +167,7 @@ void loop()
 					timeout=millis()+1000;
 				}
 			}
-			else
+			else//same cd, maybe different track
 			{
 				uint8_t lastTrack=currentTrack;
 				currentTrack=(receivedMessage&((uint64_t)0xF<<(4*2)))>>(4*2);
